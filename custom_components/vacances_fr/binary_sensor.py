@@ -82,14 +82,18 @@ class VacancesFrTomorrowBinarySensor(VacancesFrEntity, BinarySensorEntity):
     @callback
     def _handle_coordinator_update(self) -> None:
         """Update the entity."""
-        tomorrow_event = self.coordinator.get_date_event(
-            dt.now().date() + timedelta(days=1)
-        )
+        tomorrow = dt.now().date() + timedelta(days=1)
+        tomorrow_event = self.coordinator.get_date_event(tomorrow)
+        
         if tomorrow_event is not None:
-            self._attr_is_on = True
-            self._attr_extra_state_attributes = get_period_extra_attributes(
-                tomorrow_event
-            )
+            event_start = tomorrow_event.start
+            event_end = tomorrow_event.end 
+
+            if event_start <= tomorrow < event_end:
+                self._attr_is_on = True
+                self._attr_extra_state_attributes = get_period_extra_attributes(tomorrow_event)
+            else:
+                self._attr_is_on = False
         else:
             self._attr_is_on = False
 
