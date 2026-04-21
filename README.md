@@ -1,4 +1,4 @@
-# Vacances Scolaires France
+# Vacances scolaires françaises
 
 ## Installation
 
@@ -25,8 +25,7 @@
 </details>
 
 ## Configuration
-- on choisit une zone dans la liste déroulante
-- ... et c'est tout! 😋
+- Choisir la zone
 
 ## Fonctionnalités
 - un `calendar` avec toutes les vacances à venir pour la zone. Il sert aussi pour vérifier si on est en vacances, parce que le calendrier a un state `ON` si un évènement est en cours et un state `OFF` sinon.
