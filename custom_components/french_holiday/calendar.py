@@ -31,7 +31,7 @@ async def async_setup_entry(
     entry: VacancesFrConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up the binary_sensor platform."""
+    """Set up the calendar platform."""
     async_add_entities(
         [
             VacancesFrCalendar(
@@ -45,7 +45,7 @@ async def async_setup_entry(
 
 
 class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
-    """vacances_fr binary_sensor class."""
+    """Vacances_fr calendar class."""
 
     _event: CalendarEvent | None = None
 
@@ -54,12 +54,13 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
         coordinator: VacancesFrDataUpdateCoordinator,
         entity_description: CalendarEntityDescription,
     ) -> None:
-        """Initialize the binary_sensor class."""
+        """Initialize the calendar class."""
         super().__init__(coordinator)
         self.entity_description = entity_description
-        self.entity_id = f"{Platform.CALENDAR}.{DOMAIN}_{
-            slugify(self.coordinator.config_entry.data['zone'])
-        }"
+        self.entity_id = (
+            f"{Platform.CALENDAR}.{DOMAIN}_"
+            f"{slugify(self.coordinator.config_entry.data['zone'])}"
+        )
 
     @property
     def event(self) -> CalendarEvent | None:
@@ -71,17 +72,17 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
         """Update the entity."""
         next_event = self.coordinator.get_date_next_event(dt.now().date())
 
-        self._event = (
-            CalendarEvent(
+        if next_event is None:
+            self._event = None
+        else:
+            self._event = CalendarEvent(
                 start=next_event.start,
                 end=next_event.end,
                 summary=f"{next_event.summary} - {next_event.zone}",
                 uid=next_event.uid,
             )
-            if next_event is not None
-            else None
-        )
-        self.schedule_update_ha_state()
+
+        self.async_write_ha_state()
 
     async def async_get_events(
         self,
@@ -90,6 +91,11 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
         end_date: datetime,
     ) -> list[CalendarEvent]:
         """Get events in a specific date range."""
+        events = self.coordinator.get_events_between(
+            start_date.date(),
+            end_date.date(),
+        )
+
         return [
             CalendarEvent(
                 summary=f"{event.summary} - {event.zone}",
@@ -97,7 +103,6 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
                 end=event.end,
                 uid=event.uid,
             )
-            for event in self.coordinator.get_events_between(
-                start_date.date(), end_date.date()
-            )
+            for event in events
+            if event.start is not None and event.end is not None and event.end >= event.start
         ]
