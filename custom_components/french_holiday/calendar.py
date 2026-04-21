@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from homeassistant.components.calendar import (
@@ -75,9 +76,11 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
         if next_event is None:
             self._event = None
         else:
+            # Pour CalendarEvent, end doit être exclusif (jour après la fin)
+            calendar_end = next_event.end + timedelta(days=1)
             self._event = CalendarEvent(
                 start=next_event.start,
-                end=next_event.end,
+                end=calendar_end,
                 summary=f"{next_event.summary} - {next_event.zone}",
                 uid=next_event.uid,
             )
@@ -103,7 +106,7 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
             CalendarEvent(
                 summary=f"{event.summary} - {event.zone}",
                 start=event.start,
-                end=event.end,
+                end=event.end + timedelta(days=1),  # end exclusif pour CalendarEvent
                 uid=event.uid,
             )
             for event in events
