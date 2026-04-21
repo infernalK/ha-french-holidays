@@ -1,4 +1,4 @@
-"""Calendar platform for vacances_fr."""
+"""Binary sensor platform for vacances_fr."""
 
 from __future__ import annotations
 
@@ -31,7 +31,7 @@ async def async_setup_entry(
     entry: VacancesFrConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
-    """Set up the calendar platform."""
+    """Set up the binary_sensor platform."""
     async_add_entities(
         [
             VacancesFrCalendar(
@@ -45,7 +45,7 @@ async def async_setup_entry(
 
 
 class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
-    """vacances_fr calendar class."""
+    """vacances_fr binary_sensor class."""
 
     _event: CalendarEvent | None = None
 
@@ -54,10 +54,12 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
         coordinator: VacancesFrDataUpdateCoordinator,
         entity_description: CalendarEntityDescription,
     ) -> None:
-        """Initialize the calendar class."""
+        """Initialize the binary_sensor class."""
         super().__init__(coordinator)
         self.entity_description = entity_description
-        self.entity_id = f"{Platform.CALENDAR}.{DOMAIN}_{slugify(self.coordinator.config_entry.data['zone'])}"
+        self.entity_id = f"{Platform.CALENDAR}.{DOMAIN}_{
+            slugify(self.coordinator.config_entry.data['zone'])
+        }"
 
     @property
     def event(self) -> CalendarEvent | None:
@@ -67,7 +69,7 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
     @callback
     def _handle_coordinator_update(self) -> None:
         """Update the entity."""
-        next_event = self.coordinator.get_date_future_event(dt.now().date())
+        next_event = self.coordinator.get_date_next_event(dt.now().date())
 
         self._event = (
             CalendarEvent(
