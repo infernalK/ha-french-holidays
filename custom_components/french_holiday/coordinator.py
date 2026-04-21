@@ -44,9 +44,14 @@ class VacancesFrDataUpdateCoordinator(DataUpdateCoordinator[list[VacancesFrPerio
                         start=parse_datetime(
                             period["start_date"], raise_on_error=True
                         ).date(),
-                        end=(parse_datetime(
-                            period["end_date"], raise_on_error=True
-                        ).date() - timedelta(days=1)),
+                        end=max(
+                            parse_datetime(
+                                period["start_date"], raise_on_error=True
+                            ).date(),
+                            (parse_datetime(
+                                period["end_date"], raise_on_error=True
+                            ).date() - timedelta(days=1))
+                        ),
                         uid=f"{zone}-{slugify(period['description'])}-{
                             period['annee_scolaire']
                         }",
@@ -99,6 +104,8 @@ class VacancesFrDataUpdateCoordinator(DataUpdateCoordinator[list[VacancesFrPerio
         self, start_date: date, end_date: date
     ) -> list[VacancesFrPeriod]:
         """Get active events overlapping given dates."""
+        if self.data is None:
+            return []
         return [
             event
             for event in self.data

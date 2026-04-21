@@ -1,4 +1,4 @@
-"""Binary sensor platform for vacances_fr."""
+"""Calendar platform for vacances_fr."""
 
 from __future__ import annotations
 
@@ -59,7 +59,7 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
         self.entity_description = entity_description
         self.entity_id = (
             f"{Platform.CALENDAR}.{DOMAIN}_"
-            f"{slugify(self.coordinator.config_entry.data['zone'])}"
+            f"{slugify(self.coordinator.config_entry.data.get('zone', 'unknown'))}"
         )
 
     @property
@@ -91,6 +91,9 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
         end_date: datetime,
     ) -> list[CalendarEvent]:
         """Get events in a specific date range."""
+        if self.coordinator.data is None:
+            return []
+            
         events = self.coordinator.get_events_between(
             start_date.date(),
             end_date.date(),
@@ -104,5 +107,4 @@ class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
                 uid=event.uid,
             )
             for event in events
-            if event.start is not None and event.end is not None and event.end >= event.start
         ]
