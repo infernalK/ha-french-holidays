@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from homeassistant.exceptions import ConfigEntryAuthFailed
@@ -43,9 +44,9 @@ class VacancesFrDataUpdateCoordinator(DataUpdateCoordinator[list[VacancesFrPerio
                         start=parse_datetime(
                             period["start_date"], raise_on_error=True
                         ).date(),
-                        end=parse_datetime(
+                        end=(parse_datetime(
                             period["end_date"], raise_on_error=True
-                        ).date(),
+                        ).date() - timedelta(days=1)),
                         uid=f"{zone}-{slugify(period['description'])}-{
                             period['annee_scolaire']
                         }",
