@@ -36,6 +36,9 @@ async def async_setup_entry(
             NextVacancesFrSensor(
                 coordinator=entry.runtime_data.coordinator,
             ),
+            DaysUntilNextVacancesFrSensor(
+                coordinator=entry.runtime_data.coordinator,
+            ),
         ]
     )
 
@@ -122,6 +125,53 @@ class NextVacancesFrSensor(VacancesFrEntity, SensorEntity):
         next_event = self.coordinator.get_date_future_event(today)
         if next_event is not None:
             self._attr_native_value = next_event.summary
+            self._attr_extra_state_attributes = get_period_extra_attributes(next_event)
+        else:
+            self._attr_native_value = None
+
+        self.schedule_update_ha_state()
+
+
+class DaysUntilNextVacancesFrSensor(VacancesFrEntity, SensorEntity):
+    """vacances_fr days until next Sensor class."""
+
+    def __init__(
+        self,
+        coordinator: VacancesFrDataUpdateCoordinator,
+    ) -> None:
+        """Initialize the sensor class."""
+        super().__init__(coordinator)
+        self.entity_id = f"{Platform.SENSOR}.{DOMAIN}_days_until_next_{
+            slugify(self.coordinator.config_entry.data['zone'])
+        }"
+        self.entity_description = SensorEntityDescription(
+            key="vacances_fr_days_until_next",
+            name=f"{FRIENDLY_PREFIX} - jours avant prochaines",
+            icon="mdi:calendar-clock",
+            native_unit_of_measurement="days",
+        )
+
+    async def async_added_to_hass(self) -> None:
+        """Subscribe to event each day at 00:00 to update value."""
+        await super().async_added_to_hass()
+        self.unsubscribe = async_track_time_change(
+            self.hass, lambda _: self._handle_coordinator_update(), 0, 0, 0
+        )
+
+    async def async_will_remove_from_hass(self) -> None:
+        """Unsubscribe from the events."""
+        if self.unsubscribe:
+            self.unsubscribe()
+        await super().async_will_remove_from_hass()
+
+    @callback
+    def _handle_coordinator_update(self) -> None:
+        """Update the entity."""
+        today = dt.now().date()
+        next_event = self.coordinator.get_date_future_event(today)
+        if next_event is not None:
+            days_until = (next_event.start - today).days
+            self._attr_native_value = days_until
             self._attr_extra_state_attributes = get_period_extra_attributes(next_event)
         else:
             self._attr_native_value = None
