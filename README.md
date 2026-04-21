@@ -29,9 +29,12 @@
 
 ## Fonctionnalités
 - un `calendar` avec toutes les vacances à venir pour la zone. Il sert aussi pour vérifier si on est en vacances, parce que le calendrier a un state `ON` si un évènement est en cours et un state `OFF` sinon.
+- un `binary_sensor` qui dit si la zone est en vacances aujourd'hui
 - un `binary_sensor` qui dit si la zone sera en vacances demain
 - un `sensor` "Vacances en cours" avec le nom de la période de vacances, et des attributs supplémentaire. Sa valeur est "Unknown" si pas de vacances en cours
 - un `sensor` "Vacances à venir" comme le précédent mais pour les prochaines vacances, n'incluant pas les vacances en cours si c'est le cas (en gros, si vous êtes en pleines vacances de Noel, ca indiquera Vacances d'hiver)
+- un `sensor` "Jours avant prochaines vacances" qui indique le nombre de jours avant le début des prochaines vacances
+- un `sensor` "Dates prochaines vacances" qui affiche les prochaines vacances au format "Jour Date Mois - Jour Date Mois" (exemple: "Samedi 18 avril - Dimanche 3 mai")
 
 L'intégration se met à jour tous les 120 jours: vu que l'éducation nationale fournit les plannings jusqu'à 2027, ca devrait pas évoluer trop souvent 😇
 
