@@ -57,7 +57,7 @@ async def async_setup_entry(
 
 
 class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
-    """french_holiday current Sensor class."""
+    """ha-french-holidays current Sensor class."""
 
     def __init__(
         self,
@@ -69,7 +69,7 @@ class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             slugify(self.coordinator.config_entry.data['zone'])
         }"
         self.entity_description = SensorEntityDescription(
-            key="french_holiday_current",
+            key="ha-french-holidays_current",
             name=f"{FRIENDLY_PREFIX} en cours",
             icon="mdi:format-quote-close",
         )
@@ -101,7 +101,7 @@ class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
 
 
 class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
-    """french_holiday next Sensor class."""
+    """ha-french-holidays next Sensor class."""
 
     def __init__(
         self,
@@ -113,7 +113,7 @@ class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             slugify(self.coordinator.config_entry.data['zone'])
         }"
         self.entity_description = SensorEntityDescription(
-            key="french_holiday_next",
+            key="ha-french-holidays_next",
             name=f"{FRIENDLY_PREFIX} à venir",
             icon="mdi:format-quote-close",
         )
@@ -146,7 +146,7 @@ class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
 
 
 class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
-    """french_holiday days until next Sensor class."""
+    """ha-french-holidays days until next Sensor class."""
 
     def __init__(
         self,
@@ -158,7 +158,7 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             slugify(self.coordinator.config_entry.data['zone'])
         }"
         self.entity_description = SensorEntityDescription(
-            key="french_holiday_days_until_next",
+            key="ha-french-holidays_days_until_next",
             name=f"{FRIENDLY_PREFIX} - jours avant prochaines",
             icon="mdi:calendar-clock",
             native_unit_of_measurement="days",
@@ -193,7 +193,7 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
 
 
 class NextVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
-    """french_holiday next dates Sensor class."""
+    """ha-french-holidays next dates Sensor class."""
 
     def __init__(
         self,
@@ -205,7 +205,7 @@ class NextVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
             slugify(self.coordinator.config_entry.data['zone'])
         }"
         self.entity_description = SensorEntityDescription(
-            key="french_holiday_next_dates",
+            key="ha-french-holidays_next_dates",
             name=f"{FRIENDLY_PREFIX} - dates prochaines",
             icon="mdi:calendar-range",
         )

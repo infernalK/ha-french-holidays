@@ -1,4 +1,4 @@
-"""Custom types for french_holiday."""
+"""Custom types for ha-french-holidays."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ type FrenchHolidayConfigEntry = ConfigEntry[FrenchHolidayData]
 
 @dataclass
 class FrenchHolidayData:
-    """Data for the French Holiday integration."""
+    """Data for the ha-french-holidays integration."""
 
     client: FrenchHolidayApiClient
     coordinator: FrenchHolidayDataUpdateCoordinator
@@ -29,7 +29,7 @@ class FrenchHolidayData:
 
 @dataclass
 class FrenchHolidayPeriod:
-    """Data for the French Holiday integration."""
+    """Data for the ha-french-holidays integration."""
 
     summary: str
     start: date

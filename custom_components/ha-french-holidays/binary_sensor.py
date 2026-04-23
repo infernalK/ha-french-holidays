@@ -41,14 +41,14 @@ async def async_setup_entry(
             VacancesFrTomorrowBinarySensor(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=BinarySensorEntityDescription(
-                    key="french_holiday_tomorrow",
+                    key="ha-french-holidays_tomorrow",
                     name=f"{FRIENDLY_PREFIX} demain ?",
                 ),
             ),
             VacancesFrTodayBinarySensor(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=BinarySensorEntityDescription(
-                    key="french_holiday_today",
+                    key="ha-french-holidays_today",
                     name=f"{FRIENDLY_PREFIX} aujourd'hui ?",
                 ),
             ),
@@ -57,7 +57,7 @@ async def async_setup_entry(
 
 
 class VacancesFrTomorrowBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
-    """french_holiday tomorrow binary_sensor class."""
+    """ha-french-holidays tomorrow binary_sensor class."""
 
     unsubscribe: Callable[[], None] | None = None
 
@@ -108,7 +108,7 @@ class VacancesFrTomorrowBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
 
 
 class VacancesFrTodayBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
-    """french_holiday today binary_sensor class."""
+    """ha-french-holidays today binary_sensor class."""
 
     unsubscribe: Callable[[], None] | None = None
 

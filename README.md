@@ -92,7 +92,7 @@ L'intégration se met à jour tous les 120 jours: vu que l'éducation nationale 
             </li>
             <li>
                 <u>Manuellement</u><br />
-                Dans le répertoire <code>custom_components</code>, supprimer le répertoire <code>french_holiday</code>.
+                Dans le répertoire <code>custom_components</code>, supprimer le répertoire <code>ha-french-holidays</code>.
             </li>
         </ul>
         <li>Redémarrer HA pour supprimer toutes les traces de l'intégration.</li>

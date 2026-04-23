@@ -1,4 +1,4 @@
-"""Calendar platform for french_holiday."""
+"""Calendar platform for ha-french-holidays."""
 
 from __future__ import annotations
 
@@ -38,7 +38,7 @@ async def async_setup_entry(
             VacancesFrCalendar(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=CalendarEntityDescription(
-                    key="french_holiday", name=FRIENDLY_NAME
+                    key="ha-french-holidays", name=FRIENDLY_NAME
                 ),
             )
         ]

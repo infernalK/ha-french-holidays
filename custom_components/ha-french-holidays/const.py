@@ -1,10 +1,10 @@
-"""Constants for french_holiday."""
+"""Constants for ha-french-holidays."""
 
 from logging import Logger, getLogger
 
 LOGGER: Logger = getLogger(__package__)
 
-DOMAIN = "french_holiday"
+DOMAIN = "ha-french-holidays"
 ATTRIBUTION = "Data provided by https: // data.education.gouv.fr/"
 
 CONF_ZONE = "zone"

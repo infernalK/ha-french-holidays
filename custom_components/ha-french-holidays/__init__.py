@@ -1,5 +1,5 @@
 """
-Custom integration to integrate french_holiday with Home Assistant.
+Custom integration to integrate ha-french-holidays with Home Assistant.
 
 For more details about this integration, please refer to
 https://github.com/infernalK/ha-french-holidays

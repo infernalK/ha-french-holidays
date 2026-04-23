@@ -1,5 +1,5 @@
 {
-  "domain": "french_holiday",
+  "domain": "ha-french-holidays",
   "name": "Vacances scolaires françaises",
   "codeowners": ["@infernalK"],
   "config_flow": true,
