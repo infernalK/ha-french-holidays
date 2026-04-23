@@ -10,22 +10,38 @@
         <li>Installation</li>
         <ul>
             <li>
-                <u>Avec HACS</u><br />
-                Dans le panel HACS, aller sur les intégrations et cliquer sur le gros bouton '+' orange.
-                Chercher 'Vacances Scolaires France' and cliquer sur 'Install this repository in HACS'.
+                <u>Via HACS (dépôt personnalisé)</u><br />
+                Puisque l'intégration n'est pas disponible directement dans HACS, vous devez ajouter le dépôt personnalisé :
+                <ol>
+                    <li>Ouvrir HACS et aller dans les Intégrations.</li>
+                    <li>Cliquer sur le bouton '+' orange.</li>
+                    <li>Sélectionner "Dépôts personnalisés" en bas.</li>
+                    <li>Ajouter l'URL du dépôt : https://github.com/infernalK/ha-french-holidays</li>
+                    <li>Sélectionner la catégorie "Integration".</li>
+                    <li>Chercher "Vacances Scolaires France" et cliquer sur "Installer ce dépôt dans HACS".</li>
+                </ol>
             </li>
             <li>
                 <u>Manuellement</u><br />
-                Télécharger la <a href="https://github.com/infernalK/ha-french-holidays/releases">dernière release</a> au format ZIP l'extraire dans le répertoire <code>custom_components</code> de votre installation HA.
+                Télécharger la <a href="https://github.com/infernalK/ha-french-holidays/releases">dernière release</a> au format ZIP et l'extraire dans le répertoire <code>custom_components</code> de votre installation HA.
             </li>
         </ul>
         <li>Redémarrer HA pour qu'il charge l'intégration.</li>
-        <li>Aller dans 'Paramètres > Appareils et services' and cliquer sur le bouton bleu '+ Ajouter une intégration'. Chercher 'Vacances Scolaires France' et le sélectionner pour ajouter une zone.</li>
+        <li>Aller dans 'Paramètres > Appareils et services' et cliquer sur le bouton bleu '+ Ajouter une intégration'. Chercher 'Vacances Scolaires France' et le sélectionner pour ajouter une zone.</li>
     </ol>
 </details>
 
 ## Configuration
-- Choisir la zone
+
+Pour configurer l'intégration :
+
+1. Aller dans **Paramètres > Appareils et services**.
+2. Cliquer sur le bouton **+ Ajouter une intégration**.
+3. Rechercher "Vacances scolaires françaises" et la sélectionner.
+4. Choisir la zone scolaire souhaitée dans la liste déroulante.
+5. Cliquer sur **Soumettre** pour ajouter l'intégration.
+
+Une fois configurée, l'intégration créera automatiquement les entités suivantes pour la zone sélectionnée.
 
 ## Fonctionnalités
 - un `calendar` avec toutes les vacances à venir pour la zone. Il sert aussi pour vérifier si on est en vacances, parce que le calendrier a un state `ON` si un évènement est en cours et un state `OFF` sinon.
@@ -36,7 +52,7 @@
 - un `sensor` "Jours avant prochaines vacances" qui indique le nombre de jours avant le début des prochaines vacances
 - un `sensor` "Dates prochaines vacances" qui affiche les prochaines vacances au format "Jour Date Mois - Jour Date Mois" (exemple: "Samedi 18 avril - Dimanche 3 mai")
 
-L'intégration se met à jour tous les 120 jours: vu que l'éducation nationale fournit les plannings jusqu'à 2027, ca devrait pas évoluer trop souvent 😇
+L'intégration se met à jour tous les 120 jours: vu que l'éducation nationale fournit les plannings jusqu'à 2027.
 
 ## Mise à jour
 
@@ -76,7 +92,7 @@ L'intégration se met à jour tous les 120 jours: vu que l'éducation nationale 
             </li>
             <li>
                 <u>Manuellement</u><br />
-                Dans le répertoire <code>custom_components</code>, supprimer le répertoire <code>vacances_fr</code>.
+                Dans le répertoire <code>custom_components</code>, supprimer le répertoire <code>french_holiday</code>.
             </li>
         </ul>
         <li>Redémarrer HA pour supprimer toutes les traces de l'intégration.</li>
