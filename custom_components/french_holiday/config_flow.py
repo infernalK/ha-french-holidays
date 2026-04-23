@@ -9,13 +9,13 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from slugify import slugify
 
 from .api import (
-    VacancesFrApiClient,
+    FrenchHolidayApiClient,
 )
 from .const import CONF_ZONE, DOMAIN
 
 
-class VacancesFrFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Config flow for Vacances Scolaires France."""
+class FrenchHolidayFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+    """Config flow for French Holiday."""
 
     VERSION = 1
 
@@ -33,7 +33,7 @@ class VacancesFrFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 data=user_input,
             )
 
-        client = VacancesFrApiClient(session=async_get_clientsession(self.hass))
+        client = FrenchHolidayApiClient(session=async_get_clientsession(self.hass))
         zones = await client.async_get_zones()
 
         return self.async_show_form(

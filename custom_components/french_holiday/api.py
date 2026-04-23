@@ -11,23 +11,23 @@ import aiohttp
 import async_timeout
 
 
-class VacancesFrApiClientError(Exception):
+class FrenchHolidayApiClientError(Exception):
     """Exception to indicate a general API error."""
 
 
-class VacancesFrApiClientCommunicationError(
-    VacancesFrApiClientError,
+class FrenchHolidayApiClientCommunicationError(
+    FrenchHolidayApiClientError,
 ):
     """Exception to indicate a communication error."""
 
 
-class VacancesFrApiClientAuthenticationError(
-    VacancesFrApiClientError,
+class FrenchHolidayApiClientAuthenticationError(
+    FrenchHolidayApiClientError,
 ):
     """Exception to indicate an authentication error."""
 
 
-class VacancesFrApiClient:
+class FrenchHolidayApiClient:
     """API Client."""
 
     def __init__(
@@ -91,16 +91,16 @@ class VacancesFrApiClient:
 
         except TimeoutError as exception:
             msg = f"Timeout error fetching information - {exception}"
-            raise VacancesFrApiClientCommunicationError(
+            raise FrenchHolidayApiClientCommunicationError(
                 msg,
             ) from exception
         except (aiohttp.ClientError, socket.gaierror) as exception:
             msg = f"Error fetching information - {exception}"
-            raise VacancesFrApiClientCommunicationError(
+            raise FrenchHolidayApiClientCommunicationError(
                 msg,
             ) from exception
         except Exception as exception:  # pylint: disable=broad-except
             msg = f"Something really wrong happened! - {exception}"
-            raise VacancesFrApiClientError(
+            raise FrenchHolidayApiClientError(
                 msg,
             ) from exception

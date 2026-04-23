@@ -1,4 +1,4 @@
-"""VacancesFrEntity class."""
+"""FrenchHolidayEntity class."""
 
 from __future__ import annotations
 
@@ -7,15 +7,15 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.util import slugify
 
 from .const import ATTRIBUTION, FRIENDLY_NAME
-from .coordinator import VacancesFrDataUpdateCoordinator
+from .coordinator import FrenchHolidayDataUpdateCoordinator
 
 
-class VacancesFrEntity(CoordinatorEntity[VacancesFrDataUpdateCoordinator]):
-    """VacancesFrEntity class."""
+class FrenchHolidayEntity(CoordinatorEntity[FrenchHolidayDataUpdateCoordinator]):
+    """FrenchHolidayEntity class."""
 
     _attr_attribution = ATTRIBUTION
 
-    def __init__(self, coordinator: VacancesFrDataUpdateCoordinator) -> None:
+    def __init__(self, coordinator: FrenchHolidayDataUpdateCoordinator) -> None:
         """Initialize."""
         super().__init__(coordinator)
         self._attr_unique_id = (

@@ -1,8 +1,8 @@
 """
-Custom integration to integrate vacances_fr with Home Assistant.
+Custom integration to integrate french_holiday with Home Assistant.
 
 For more details about this integration, please refer to
-https://github.com/ludeeus/vacances_fr
+https://github.com/infernalK/ha-french-holidays
 """
 
 from __future__ import annotations
@@ -14,15 +14,15 @@ from homeassistant.const import Platform
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.loader import async_get_loaded_integration
 
-from .api import VacancesFrApiClient
+from .api import FrenchHolidayApiClient
 from .const import DOMAIN, LOGGER
-from .coordinator import VacancesFrDataUpdateCoordinator
-from .data import VacancesFrData
+from .coordinator import FrenchHolidayDataUpdateCoordinator
+from .data import FrenchHolidayData
 
 if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
 
-    from .data import VacancesFrConfigEntry
+    from .data import FrenchHolidayConfigEntry
 
 PLATFORMS: list[Platform] = [Platform.CALENDAR, Platform.BINARY_SENSOR, Platform.SENSOR]
 
@@ -30,14 +30,14 @@ PLATFORMS: list[Platform] = [Platform.CALENDAR, Platform.BINARY_SENSOR, Platform
 # https://developers.home-assistant.io/docs/config_entries_index/#setting-up-an-entry
 async def async_setup_entry(
     hass: HomeAssistant,
-    entry: VacancesFrConfigEntry,
+    entry: FrenchHolidayConfigEntry,
 ) -> bool:
     """Set up this integration using UI."""
-    coordinator = VacancesFrDataUpdateCoordinator(
+    coordinator = FrenchHolidayDataUpdateCoordinator(
         hass=hass, logger=LOGGER, name=DOMAIN, update_interval=timedelta(days=120)
     )
-    entry.runtime_data = VacancesFrData(
-        client=VacancesFrApiClient(
+    entry.runtime_data = FrenchHolidayData(
+        client=FrenchHolidayApiClient(
             session=async_get_clientsession(hass),
         ),
         integration=async_get_loaded_integration(hass, entry.domain),
@@ -54,7 +54,7 @@ async def async_setup_entry(
 
 async def async_unload_entry(
     hass: HomeAssistant,
-    entry: VacancesFrConfigEntry,
+    entry: FrenchHolidayConfigEntry,
 ) -> bool:
     """Handle removal of an entry."""
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
@@ -62,7 +62,7 @@ async def async_unload_entry(
 
 async def async_reload_entry(
     hass: HomeAssistant,
-    entry: VacancesFrConfigEntry,
+    entry: FrenchHolidayConfigEntry,
 ) -> None:
     """Reload config entry."""
     await hass.config_entries.async_reload(entry.entry_id)

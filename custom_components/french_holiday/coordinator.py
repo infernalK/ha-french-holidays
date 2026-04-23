@@ -1,4 +1,4 @@
-"""DataUpdateCoordinator for vacances_fr."""
+"""DataUpdateCoordinator for french_holiday."""
 
 from __future__ import annotations
 
@@ -11,25 +11,25 @@ from homeassistant.util import slugify
 from homeassistant.util.dt import parse_datetime
 
 from .api import (
-    VacancesFrApiClientAuthenticationError,
-    VacancesFrApiClientError,
+    FrenchHolidayApiClientAuthenticationError,
+    FrenchHolidayApiClientError,
 )
 from .const import LOGGER
-from .data import VacancesFrPeriod
+from .data import FrenchHolidayPeriod
 
 if TYPE_CHECKING:
     from datetime import date
 
-    from .data import VacancesFrConfigEntry
+    from .data import FrenchHolidayConfigEntry
 
 
 # https://developers.home-assistant.io/docs/integration_fetching_data#coordinated-single-api-poll-for-data-for-all-entities
-class VacancesFrDataUpdateCoordinator(DataUpdateCoordinator[list[VacancesFrPeriod]]):
+class FrenchHolidayDataUpdateCoordinator(DataUpdateCoordinator[list[FrenchHolidayPeriod]]):
     """Class to manage fetching data from the API."""
 
-    config_entry: VacancesFrConfigEntry
+    config_entry: FrenchHolidayConfigEntry
 
-    async def _async_update_data(self) -> list[VacancesFrPeriod]:
+    async def _async_update_data(self) -> list[FrenchHolidayPeriod]:
         """Update data via library."""
         try:
             zone = self.config_entry.data["zone"]
@@ -39,7 +39,7 @@ class VacancesFrDataUpdateCoordinator(DataUpdateCoordinator[list[VacancesFrPerio
             LOGGER.debug("Got %s", api_events)
             return sorted(
                 [
-                    VacancesFrPeriod(
+                    FrenchHolidayPeriod(
                         summary=period["description"],
                         start=parse_datetime(
                             period["start_date"], raise_on_error=True
@@ -62,12 +62,12 @@ class VacancesFrDataUpdateCoordinator(DataUpdateCoordinator[list[VacancesFrPerio
                 ],
                 key=lambda e: e.start,
             )
-        except VacancesFrApiClientAuthenticationError as exception:
+        except FrenchHolidayApiClientAuthenticationError as exception:
             raise ConfigEntryAuthFailed(exception) from exception
-        except VacancesFrApiClientError as exception:
+        except FrenchHolidayApiClientError as exception:
             raise UpdateFailed(exception) from exception
 
-    def get_date_next_event(self, start_date: date) -> VacancesFrPeriod | None:
+    def get_date_next_event(self, start_date: date) -> FrenchHolidayPeriod | None:
         """Get next event for a given date."""
         return next(
             (
@@ -78,7 +78,7 @@ class VacancesFrDataUpdateCoordinator(DataUpdateCoordinator[list[VacancesFrPerio
             None,
         )
 
-    def get_date_future_event(self, start_date: date) -> VacancesFrPeriod | None:
+    def get_date_future_event(self, start_date: date) -> FrenchHolidayPeriod | None:
         """Get next event for a given date."""
         return next(
             (
@@ -89,7 +89,7 @@ class VacancesFrDataUpdateCoordinator(DataUpdateCoordinator[list[VacancesFrPerio
             None,
         )
 
-    def get_date_event(self, date: date) -> VacancesFrPeriod | None:
+    def get_date_event(self, date: date) -> FrenchHolidayPeriod | None:
         """Get next event for a given date."""
         return next(
             (
@@ -102,7 +102,7 @@ class VacancesFrDataUpdateCoordinator(DataUpdateCoordinator[list[VacancesFrPerio
 
     def get_events_between(
         self, start_date: date, end_date: date
-    ) -> list[VacancesFrPeriod]:
+    ) -> list[FrenchHolidayPeriod]:
         """Get active events overlapping given dates."""
         if self.data is None:
             return []

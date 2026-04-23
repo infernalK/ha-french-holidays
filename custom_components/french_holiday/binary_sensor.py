@@ -18,7 +18,7 @@ from homeassistant.util import dt, slugify
 
 from .const import DOMAIN, FRIENDLY_PREFIX
 from .data import get_period_extra_attributes
-from .entity import VacancesFrEntity
+from .entity import FrenchHolidayEntity
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -26,13 +26,13 @@ if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-    from .coordinator import VacancesFrDataUpdateCoordinator
-    from .data import VacancesFrConfigEntry
+    from .coordinator import FrenchHolidayDataUpdateCoordinator
+    from .data import FrenchHolidayConfigEntry
 
 
 async def async_setup_entry(
     hass: HomeAssistant,  # noqa: ARG001 Unused function argument: `hass`
-    entry: VacancesFrConfigEntry,
+    entry: FrenchHolidayConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the binary_sensor platform."""
@@ -41,14 +41,14 @@ async def async_setup_entry(
             VacancesFrTomorrowBinarySensor(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=BinarySensorEntityDescription(
-                    key="vacances_fr_tomorrow",
+                    key="french_holiday_tomorrow",
                     name=f"{FRIENDLY_PREFIX} demain ?",
                 ),
             ),
             VacancesFrTodayBinarySensor(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=BinarySensorEntityDescription(
-                    key="vacances_fr_today",
+                    key="french_holiday_today",
                     name=f"{FRIENDLY_PREFIX} aujourd'hui ?",
                 ),
             ),
@@ -56,14 +56,14 @@ async def async_setup_entry(
     )
 
 
-class VacancesFrTomorrowBinarySensor(VacancesFrEntity, BinarySensorEntity):
-    """vacances_fr tomorrow binary_sensor class."""
+class VacancesFrTomorrowBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
+    """french_holiday tomorrow binary_sensor class."""
 
     unsubscribe: Callable[[], None] | None = None
 
     def __init__(
         self,
-        coordinator: VacancesFrDataUpdateCoordinator,
+        coordinator: FrenchHolidayDataUpdateCoordinator,
         entity_description: BinarySensorEntityDescription,
     ) -> None:
         """Initialize the binary_sensor class."""
@@ -107,14 +107,14 @@ class VacancesFrTomorrowBinarySensor(VacancesFrEntity, BinarySensorEntity):
         self.schedule_update_ha_state()
 
 
-class VacancesFrTodayBinarySensor(VacancesFrEntity, BinarySensorEntity):
-    """vacances_fr today binary_sensor class."""
+class VacancesFrTodayBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
+    """french_holiday today binary_sensor class."""
 
     unsubscribe: Callable[[], None] | None = None
 
     def __init__(
         self,
-        coordinator: VacancesFrDataUpdateCoordinator,
+        coordinator: FrenchHolidayDataUpdateCoordinator,
         entity_description: BinarySensorEntityDescription,
     ) -> None:
         """Initialize the binary_sensor class."""

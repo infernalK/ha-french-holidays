@@ -1,11 +1,10 @@
 {
-  "domain": "vacances_fr",
+  "domain": "french_holiday",
   "name": "Vacances scolaires françaises",
-  "codeowners": [
-    "@infernalK"
-  ],
+  "codeowners": ["@infernalK"],
   "config_flow": true,
   "documentation": "https://github.com/infernalK/ha-french-holidays",
+  "integration_type": "service",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/infernalK/ha-french-holidays/issues",
   "version": "1.0.0"

@@ -1,4 +1,4 @@
-"""Custom types for vacances_fr."""
+"""Custom types for french_holiday."""
 
 from __future__ import annotations
 
@@ -11,25 +11,25 @@ if TYPE_CHECKING:
     from homeassistant.config_entries import ConfigEntry
     from homeassistant.loader import Integration
 
-    from .api import VacancesFrApiClient
-    from .coordinator import VacancesFrDataUpdateCoordinator
+    from .api import FrenchHolidayApiClient
+    from .coordinator import FrenchHolidayDataUpdateCoordinator
 
 
-type VacancesFrConfigEntry = ConfigEntry[VacancesFrData]
+type FrenchHolidayConfigEntry = ConfigEntry[FrenchHolidayData]
 
 
 @dataclass
-class VacancesFrData:
-    """Data for the Vacances Scolaires France integration."""
+class FrenchHolidayData:
+    """Data for the French Holiday integration."""
 
-    client: VacancesFrApiClient
-    coordinator: VacancesFrDataUpdateCoordinator
+    client: FrenchHolidayApiClient
+    coordinator: FrenchHolidayDataUpdateCoordinator
     integration: Integration
 
 
 @dataclass
-class VacancesFrPeriod:
-    """Data for the Vacances Scolaires France integration."""
+class FrenchHolidayPeriod:
+    """Data for the French Holiday integration."""
 
     summary: str
     start: date
@@ -39,7 +39,7 @@ class VacancesFrPeriod:
     year: str
 
 
-def get_period_extra_attributes(event: VacancesFrPeriod) -> dict[str, Any]:
+def get_period_extra_attributes(event: FrenchHolidayPeriod) -> dict[str, Any]:
     """Get extra attributes for an event."""
     return {
         "start_date": event.start,

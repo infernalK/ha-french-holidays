@@ -14,8 +14,8 @@
                 Puisque l'intégration n'est pas disponible directement dans HACS, vous devez ajouter le dépôt personnalisé :
                 <ol>
                     <li>Ouvrir HACS et aller dans les Intégrations.</li>
-                    <li>Cliquer sur le bouton '+' orange.</li>
-                    <li>Sélectionner "Dépôts personnalisés" en bas.</li>
+                    <li>Cliquer sur le bouton '...' en haut à droite.</li>
+                    <li>Sélectionner "Dépôts personnalisés".</li>
                     <li>Ajouter l'URL du dépôt : https://github.com/infernalK/ha-french-holidays</li>
                     <li>Sélectionner la catégorie "Integration".</li>
                     <li>Chercher "Vacances Scolaires France" et cliquer sur "Installer ce dépôt dans HACS".</li>

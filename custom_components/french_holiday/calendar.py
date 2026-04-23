@@ -1,4 +1,4 @@
-"""Calendar platform for vacances_fr."""
+"""Calendar platform for french_holiday."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from homeassistant.core import callback
 from homeassistant.util import dt, slugify
 
 from .const import DOMAIN, FRIENDLY_NAME
-from .entity import VacancesFrEntity
+from .entity import FrenchHolidayEntity
 
 if TYPE_CHECKING:
     from datetime import datetime
@@ -23,13 +23,13 @@ if TYPE_CHECKING:
     from homeassistant.core import HomeAssistant
     from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-    from .coordinator import VacancesFrDataUpdateCoordinator
-    from .data import VacancesFrConfigEntry
+    from .coordinator import FrenchHolidayDataUpdateCoordinator
+    from .data import FrenchHolidayConfigEntry
 
 
 async def async_setup_entry(
     hass: HomeAssistant,  # noqa: ARG001 Unused function argument: `hass`
-    entry: VacancesFrConfigEntry,
+    entry: FrenchHolidayConfigEntry,
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     """Set up the calendar platform."""
@@ -38,21 +38,21 @@ async def async_setup_entry(
             VacancesFrCalendar(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=CalendarEntityDescription(
-                    key="vacances_fr", name=FRIENDLY_NAME
+                    key="french_holiday", name=FRIENDLY_NAME
                 ),
             )
         ]
     )
 
 
-class VacancesFrCalendar(VacancesFrEntity, CalendarEntity):
-    """Vacances_fr calendar class."""
+class VacancesFrCalendar(FrenchHolidayEntity, CalendarEntity):
+    """French holiday calendar class."""
 
     _event: CalendarEvent | None = None
 
     def __init__(
         self,
-        coordinator: VacancesFrDataUpdateCoordinator,
+        coordinator: FrenchHolidayDataUpdateCoordinator,
         entity_description: CalendarEntityDescription,
     ) -> None:
         """Initialize the calendar class."""
