@@ -41,14 +41,14 @@ async def async_setup_entry(
             VacancesFrTomorrowBinarySensor(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=BinarySensorEntityDescription(
-                    key="ha-french-holidays_tomorrow",
+                    key="tomorrow",
                     name=f"{FRIENDLY_PREFIX} demain ?",
                 ),
             ),
             VacancesFrTodayBinarySensor(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=BinarySensorEntityDescription(
-                    key="ha-french-holidays_today",
+                    key="today",
                     name=f"{FRIENDLY_PREFIX} aujourd'hui ?",
                 ),
             ),

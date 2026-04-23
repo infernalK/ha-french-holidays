@@ -38,7 +38,7 @@ async def async_setup_entry(
             VacancesFrCalendar(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=CalendarEntityDescription(
-                    key="ha-french-holidays", name=FRIENDLY_NAME
+                    key="vacances", name=FRIENDLY_NAME
                 ),
             )
         ]

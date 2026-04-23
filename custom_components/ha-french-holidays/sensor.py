@@ -69,7 +69,7 @@ class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             slugify(self.coordinator.config_entry.data['zone'])
         }"
         self.entity_description = SensorEntityDescription(
-            key="ha-french-holidays_current",
+            key="current",
             name=f"{FRIENDLY_PREFIX} en cours",
             icon="mdi:format-quote-close",
         )
@@ -113,7 +113,7 @@ class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             slugify(self.coordinator.config_entry.data['zone'])
         }"
         self.entity_description = SensorEntityDescription(
-            key="ha-french-holidays_next",
+            key="next",
             name=f"{FRIENDLY_PREFIX} à venir",
             icon="mdi:format-quote-close",
         )
@@ -158,7 +158,7 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             slugify(self.coordinator.config_entry.data['zone'])
         }"
         self.entity_description = SensorEntityDescription(
-            key="ha-french-holidays_days_until_next",
+            key="days_until_next",
             name=f"{FRIENDLY_PREFIX} - jours avant prochaines",
             icon="mdi:calendar-clock",
             native_unit_of_measurement="days",
@@ -205,7 +205,7 @@ class NextVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
             slugify(self.coordinator.config_entry.data['zone'])
         }"
         self.entity_description = SensorEntityDescription(
-            key="ha-french-holidays_next_dates",
+            key="next_dates",
             name=f"{FRIENDLY_PREFIX} - dates prochaines",
             icon="mdi:calendar-range",
         )
