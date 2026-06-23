@@ -57,7 +57,7 @@ async def async_setup_entry(
 
 
 class VacancesFrTomorrowBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
-    """ha-french-holidays tomorrow binary_sensor class."""
+    """french_holidays tomorrow binary_sensor class."""
 
     unsubscribe: Callable[[], None] | None = None
 
@@ -108,7 +108,7 @@ class VacancesFrTomorrowBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
 
 
 class VacancesFrTodayBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
-    """ha-french-holidays today binary_sensor class."""
+    """french_holidays today binary_sensor class."""
 
     unsubscribe: Callable[[], None] | None = None
 

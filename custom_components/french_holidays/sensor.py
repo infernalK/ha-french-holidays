@@ -57,7 +57,7 @@ async def async_setup_entry(
 
 
 class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
-    """ha-french-holidays current Sensor class."""
+    """french_holidays current Sensor class."""
 
     def __init__(
         self,
@@ -101,7 +101,7 @@ class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
 
 
 class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
-    """ha-french-holidays next Sensor class."""
+    """french_holidays next Sensor class."""
 
     def __init__(
         self,
@@ -146,7 +146,7 @@ class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
 
 
 class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
-    """ha-french-holidays days until next Sensor class."""
+    """french_holidays days until next Sensor class."""
 
     def __init__(
         self,
@@ -193,7 +193,7 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
 
 
 class NextVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
-    """ha-french-holidays next dates Sensor class."""
+    """french_holidays next dates Sensor class."""
 
     def __init__(
         self,

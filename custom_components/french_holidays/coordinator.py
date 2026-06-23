@@ -1,4 +1,4 @@
-"""DataUpdateCoordinator for ha-french-holidays."""
+"""DataUpdateCoordinator for french_holidays."""
 
 from __future__ import annotations
 

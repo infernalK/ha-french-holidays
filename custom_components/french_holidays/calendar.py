@@ -1,4 +1,4 @@
-"""Calendar platform for ha-french-holidays."""
+"""Calendar platform for french_holidays."""
 
 from __future__ import annotations
 

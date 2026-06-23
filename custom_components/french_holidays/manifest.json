@@ -1,5 +1,5 @@
 {
-  "domain": "ha-french-holidays",
+  "domain": "french_holidays",
   "name": "Vacances scolaires françaises",
   "codeowners": ["@infernalK"],
   "config_flow": true,
@@ -7,5 +7,5 @@
   "integration_type": "service",
   "iot_class": "cloud_polling",
   "issue_tracker": "https://github.com/infernalK/ha-french-holidays/issues",
-  "version": "1.0.0"
+  "version": "1.0.1"
 }
