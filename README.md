@@ -73,11 +73,18 @@ Une fois configurée, l'intégration créera automatiquement les entités suivan
 
 ### Capteurs (`sensor`)
 
+**Vacances en cours**
+
 | Entité | Description |
 | --- | --- |
 | Vacances en cours | Nom de la période de vacances en cours, avec les dates et l'année scolaire en attributs. Vide si pas de vacances en cours. |
 | Vacances - dates en cours | Dates de la période en cours, au format "Jour Date Mois - Jour Date Mois" (ex : "Samedi 18 avril - Dimanche 3 mai"). Vide si pas de vacances en cours. |
 | Vacances - jours restants | Nombre de jours restants avant la fin des vacances en cours. Vide si pas de vacances en cours. |
+
+**Vacances à venir**
+
+| Entité | Description |
+| --- | --- |
 | Vacances à venir | Nom des prochaines vacances, sans compter celles en cours (si vous êtes en pleines vacances de Noël, ce capteur indiquera "Vacances d'hiver"). |
 | Vacances - dates prochaines | Dates des prochaines vacances, même format que ci-dessus. |
 | Vacances - jours avant prochaines | Nombre de jours avant le début des prochaines vacances. |
