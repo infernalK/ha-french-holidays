@@ -28,7 +28,7 @@ L'intégration est référencée officiellement dans HACS (Home Assistant Commun
                 <u>Via HACS</u><br />
                 <ol>
                     <li>Ouvrir HACS et aller dans les Intégrations.</li>
-                    <li>Chercher "Vacances Scolaires France".</li>
+                    <li>Chercher "Vacances scolaires françaises".</li>
                     <li>Cliquer sur le résultat puis sur "Télécharger" (ou utiliser le badge ci-dessus).</li>
                 </ol>
             </li>
@@ -38,7 +38,7 @@ L'intégration est référencée officiellement dans HACS (Home Assistant Commun
             </li>
         </ul>
         <li>Redémarrer HA pour qu'il charge l'intégration.</li>
-        <li>Aller dans 'Paramètres > Appareils et services' et cliquer sur le bouton bleu '+ Ajouter une intégration'. Chercher 'Vacances Scolaires France' et le sélectionner pour ajouter une zone.</li>
+        <li>Aller dans 'Paramètres > Appareils et services' et cliquer sur le bouton bleu '+ Ajouter une intégration'. Chercher 'Vacances scolaires françaises' et le sélectionner pour ajouter une zone.</li>
     </ol>
 </details>
 
@@ -110,14 +110,14 @@ L'intégration se met à jour tous les 120 jours, l'Éducation Nationale fournis
     <summary>Cliquez pour afficher les instructions de désinstallation</summary>
     <ol>
         <li>
-            <u>Supprimer Vacances Scolaires France de HA :</u><br>
-            Aller dans 'Paramètres > Appareils et services'. Dans la section Vacances Scolaires France, cliquer sur le bouton '...', et sélectionner 'Supprimer'.
+            <u>Supprimer Vacances scolaires françaises de HA :</u><br>
+            Aller dans 'Paramètres > Appareils et services'. Dans la section Vacances scolaires françaises, cliquer sur le bouton '...', et sélectionner 'Supprimer'.
         </li>
         <li>Supprimer les fichiers</li>
         <ul>
             <li>
                 <u>Avec HACS</u><br />
-                Dans le panneau HACS, aller sur les intégrations et chercher 'Vacances Scolaires France'.
+                Dans le panneau HACS, aller sur les intégrations et chercher 'Vacances scolaires françaises'.
                 Cliquer sur le bouton '...' et sélectionner 'Uninstall'.
             </li>
             <li>
@@ -135,11 +135,11 @@ Avant de créer un nouveau ticket de bug :
 
 1. Vérifiez le nombre d'appareils sur la page [System Health](https://my.home-assistant.io/redirect/system_health).
 2. Vérifiez les warnings et erreurs sur la page [Logs](https://my.home-assistant.io/redirect/logs/).
-3. Activez et consultez les **logs de débogage** de l'intégration (Paramètres > Appareils et services > Vacances Scolaires France > '...' > Activer le mode debug), voir la [documentation Home Assistant](https://www.home-assistant.io/docs/configuration/troubleshooting/#debug-logs-and-diagnostics) pour plus de détails.
+3. Activez et consultez les **logs de débogage** de l'intégration (Paramètres > Appareils et services > Vacances scolaires françaises > '...' > Activer le mode debug), voir la [documentation Home Assistant](https://www.home-assistant.io/docs/configuration/troubleshooting/#debug-logs-and-diagnostics) pour plus de détails.
 4. Vérifiez les [tickets **ouverts et fermés**](https://github.com/infernalK/ha-french-holidays/issues?q=is%3Aissue).
 5. Partagez les [diagnostics de l'intégration](https://www.home-assistant.io/integrations/diagnostics/) (à partir de la v2022.2) :
 
-- Tous les appareils : Paramètres > Appareils et services > [Intégrations](https://my.home-assistant.io/redirect/integrations/) > **Vacances Scolaires France** > '...' > Télécharger les diagnostics
+- Tous les appareils : Paramètres > Appareils et services > [Intégrations](https://my.home-assistant.io/redirect/integrations/) > **Vacances scolaires françaises** > '...' > Télécharger les diagnostics
 - Un appareil : Paramètres > Appareils et services > [Appareils](https://my.home-assistant.io/redirect/devices/) > (votre appareil) > Télécharger les diagnostics
 
 *Aucune donnée privée n'est transmise, mais vous pouvez supprimer tout ce que vous considérerez comme sensible.*
