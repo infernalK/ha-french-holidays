@@ -89,7 +89,23 @@ Une fois configurée, l'intégration créera automatiquement les entités suivan
 | Vacances - dates prochaines | Dates des prochaines vacances, même format que ci-dessus. |
 | Vacances - jours avant prochaines | Nombre de jours avant le début des prochaines vacances. |
 
-Chaque capteur de type "vacances" expose en attributs `start_date`, `end_date`, `zone` et `année_scolaire`.
+#### State et attributs des capteurs "vacances"
+
+Pour ces quatre capteurs (Vacances en cours / à venir / dates en cours / dates prochaines), le **state** est toujours la version "prête à lire" (le nom de la période, ou les dates au format long) : idéal pour un affichage direct ou les logs, mais peu pratique à reformater dans un template.
+
+Les **attributs** donnent les mêmes informations sous des formes déjà calculées, pour éviter d'avoir à reparser le state dans vos templates/automatisations :
+
+| Attribut | Exemple | Description |
+| --- | --- | --- |
+| `start_date` | `2026-07-04` | Date de début au format ISO (`YYYY-MM-DD`), pour trier ou comparer des dates. |
+| `end_date` | `2026-08-31` | Date de fin au format ISO. |
+| `start_date_short` | `04 juil` | Date de début abrégée, prête à afficher sans reformater. |
+| `end_date_short` | `31 août` | Date de fin abrégée. |
+| `start_weekday` | `5` | Jour de la semaine du début de période, de `0` (lundi) à `6` (dimanche). |
+| `end_weekday` | `0` | Jour de la semaine de fin de période, même échelle. |
+| `duration_days` | `59` | Nombre total de jours de la période (dates de début et de fin incluses), par exemple pour une barre de progression. |
+| `zone` | `Zone C` | Zone scolaire concernée. |
+| `année_scolaire` | `2025-2026` | Année scolaire de la période. |
 
 L'intégration se met à jour tous les 120 jours, l'Éducation Nationale fournissant les plannings jusqu'en 2027.
 
