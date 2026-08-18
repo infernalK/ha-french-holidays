@@ -101,7 +101,8 @@ class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             self._attr_native_value = today_event.summary
             self._attr_extra_state_attributes = get_period_extra_attributes(today_event)
         else:
-            self._attr_native_value = None
+            self._attr_native_value = ""
+            self._attr_extra_state_attributes = {}
 
         self.schedule_update_ha_state()
 
@@ -146,7 +147,8 @@ class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             self._attr_native_value = next_event.summary
             self._attr_extra_state_attributes = get_period_extra_attributes(next_event)
         else:
-            self._attr_native_value = None
+            self._attr_native_value = ""
+            self._attr_extra_state_attributes = {}
 
         self.schedule_update_ha_state()
 
@@ -193,7 +195,8 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             self._attr_native_value = days_until
             self._attr_extra_state_attributes = get_period_extra_attributes(next_event)
         else:
-            self._attr_native_value = None
+            self._attr_native_value = ""
+            self._attr_extra_state_attributes = {}
 
         self.schedule_update_ha_state()
 
@@ -240,7 +243,8 @@ class NextVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
             self._attr_native_value = f"{start_formatted} - {end_formatted}"
             self._attr_extra_state_attributes = get_period_extra_attributes(next_event)
         else:
-            self._attr_native_value = None
+            self._attr_native_value = ""
+            self._attr_extra_state_attributes = {}
 
         self.schedule_update_ha_state()
 
@@ -287,7 +291,8 @@ class CurrentVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
             self._attr_native_value = f"{start_formatted} - {end_formatted}"
             self._attr_extra_state_attributes = get_period_extra_attributes(today_event)
         else:
-            self._attr_native_value = None
+            self._attr_native_value = ""
+            self._attr_extra_state_attributes = {}
 
         self.schedule_update_ha_state()
 
@@ -334,6 +339,7 @@ class DaysRemainingCurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             self._attr_native_value = days_remaining
             self._attr_extra_state_attributes = get_period_extra_attributes(today_event)
         else:
-            self._attr_native_value = None
+            self._attr_native_value = ""
+            self._attr_extra_state_attributes = {}
 
         self.schedule_update_ha_state()
