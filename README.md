@@ -17,7 +17,9 @@ Intégration Home Assistant qui expose les dates des vacances scolaires françai
 
 ## Installation
 
-L'intégration est référencée officiellement dans HACS (Home Assistant Community Store). Cliquez sur le badge ci-dessus pour ouvrir directement sa fiche dans HACS, puis sur "Télécharger".
+L'intégration est référencée officiellement dans HACS (Home Assistant Community Store).
+
+[![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=infernalK&repository=ha-french-holidays&category=integration)
 
 <details>
     <summary>Cliquez ici pour afficher les instructions détaillées</summary>
@@ -27,7 +29,7 @@ L'intégration est référencée officiellement dans HACS (Home Assistant Commun
             <li>
                 <u>Via HACS</u><br />
                 <ol>
-                    <li>Cliquer sur le badge HACS en haut de ce README (ouvre directement la fiche du dépôt), ou ouvrir HACS manuellement et aller dans les Intégrations.</li>
+                    <li>Cliquer sur le badge ci-dessus (ouvre directement la fiche du dépôt dans HACS), ou ouvrir HACS manuellement et aller dans les Intégrations.</li>
                     <li>Chercher "Vacances scolaires françaises" si vous n'êtes pas passé par le badge.</li>
                     <li>Cliquer sur le résultat puis sur "Télécharger".</li>
                 </ol>
