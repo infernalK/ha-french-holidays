@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from homeassistant.components.sensor import SensorEntity, SensorEntityDescription
-from homeassistant.const import Platform
+from homeassistant.const import Platform, UnitOfTime
 from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_time_change
 from homeassistant.util import dt, slugify
@@ -169,7 +169,7 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             key="days_until_next",
             name=f"{FRIENDLY_PREFIX} - jours avant prochaines",
             icon="mdi:calendar-clock",
-            native_unit_of_measurement="jours",
+            native_unit_of_measurement=UnitOfTime.DAYS,
         )
 
     async def async_added_to_hass(self) -> None:
@@ -195,7 +195,7 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             self._attr_native_value = days_until
             self._attr_extra_state_attributes = get_period_extra_attributes(next_event)
         else:
-            self._attr_native_value = ""
+            self._attr_native_value = -1
             self._attr_extra_state_attributes = {}
 
         self.schedule_update_ha_state()
@@ -313,7 +313,7 @@ class DaysRemainingCurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             key="days_remaining_current",
             name=f"{FRIENDLY_PREFIX} - jours restants",
             icon="mdi:calendar-clock",
-            native_unit_of_measurement="jours",
+            native_unit_of_measurement=UnitOfTime.DAYS,
         )
 
     async def async_added_to_hass(self) -> None:
@@ -339,7 +339,7 @@ class DaysRemainingCurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
             self._attr_native_value = days_remaining
             self._attr_extra_state_attributes = get_period_extra_attributes(today_event)
         else:
-            self._attr_native_value = ""
+            self._attr_native_value = -1
             self._attr_extra_state_attributes = {}
 
         self.schedule_update_ha_state()
