@@ -10,6 +10,7 @@ from slugify import slugify
 
 from .api import (
     FrenchHolidayApiClient,
+    FrenchHolidayApiClientError,
 )
 from .const import CONF_ZONE, DOMAIN
 
@@ -34,7 +35,10 @@ class FrenchHolidayFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             )
 
         client = FrenchHolidayApiClient(session=async_get_clientsession(self.hass))
-        zones = await client.async_get_zones()
+        try:
+            zones = await client.async_get_zones()
+        except FrenchHolidayApiClientError:
+            return self.async_abort(reason="cannot_connect")
 
         return self.async_show_form(
             step_id="user",

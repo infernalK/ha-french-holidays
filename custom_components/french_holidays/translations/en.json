@@ -13,7 +13,8 @@
             "unknown": "Unknown error occurred."
         },
         "abort": {
-            "already_configured": "This entry is already configured."
+            "already_configured": "This entry is already configured.",
+            "cannot_connect": "Unable to fetch the list of zones from the server. Please try again later."
         }
     }
 }

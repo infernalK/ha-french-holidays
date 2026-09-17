@@ -13,7 +13,8 @@
             "unknown": "Erreur inconnue."
         },
         "abort": {
-            "already_configured": "Cette zone est déjà configurée."
+            "already_configured": "Cette zone est déjà configurée.",
+            "cannot_connect": "Impossible de récupérer la liste des zones depuis le serveur. Réessayez plus tard."
         }
     }
 }
