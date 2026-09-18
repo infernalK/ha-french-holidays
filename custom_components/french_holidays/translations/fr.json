@@ -14,7 +14,7 @@
         },
         "abort": {
             "already_configured": "Cette zone est déjà configurée.",
-            "cannot_connect": "Impossible de récupérer la liste des zones depuis le serveur. Réessayez plus tard."
+            "cannot_connect": "Impossible de récupérer la liste des zones depuis le serveur. Réessayez plus tard.\n\nDétail technique : {error_detail}"
         }
     }
 }

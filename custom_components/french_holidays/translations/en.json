@@ -14,7 +14,7 @@
         },
         "abort": {
             "already_configured": "This entry is already configured.",
-            "cannot_connect": "Unable to fetch the list of zones from the server. Please try again later."
+            "cannot_connect": "Unable to fetch the list of zones from the server. Please try again later.\n\nTechnical detail: {error_detail}"
         }
     }
 }

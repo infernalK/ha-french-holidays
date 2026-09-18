@@ -10,6 +10,8 @@ from typing import Any
 import aiohttp
 import async_timeout
 
+from .const import LOGGER
+
 
 class FrenchHolidayApiClientError(Exception):
     """Exception to indicate a general API error."""
@@ -80,21 +82,35 @@ class FrenchHolidayApiClient:
     ) -> Any:
         """Get information from the API."""
         try:
-            async with async_timeout.timeout(10):
-                response = await self._session.request(
-                    method=method,
-                    url=url,
-                    headers=headers,
-                    json=data,
-                )
-                return await response.json()
-
-        except TimeoutError as exception:
-            msg = f"Timeout error fetching information - {exception}"
-            raise FrenchHolidayApiClientCommunicationError(
-                msg,
-            ) from exception
-        except (aiohttp.ClientError, socket.gaierror) as exception:
+            return await self._do_request(self._session, method, url, data, headers)
+        except (
+            TimeoutError,
+            aiohttp.ClientConnectionError,
+            socket.gaierror,
+        ) as exception:
+            # Some routers/ISPs (e.g. Freebox) hand out a broken IPv6 route,
+            # which makes aiohttp hang or fail on the AAAA record before it
+            # ever tries IPv4. Retry once, forcing IPv4 only.
+            LOGGER.debug(
+                "Request failed (%s), retrying over IPv4 only", exception
+            )
+            try:
+                connector = aiohttp.TCPConnector(family=socket.AF_INET)
+                async with aiohttp.ClientSession(connector=connector) as ipv4_session:
+                    return await self._do_request(
+                        ipv4_session, method, url, data, headers
+                    )
+            except TimeoutError as ipv4_exception:
+                msg = f"Timeout error fetching information - {ipv4_exception}"
+                raise FrenchHolidayApiClientCommunicationError(
+                    msg,
+                ) from ipv4_exception
+            except (aiohttp.ClientError, socket.gaierror) as ipv4_exception:
+                msg = f"Error fetching information - {ipv4_exception}"
+                raise FrenchHolidayApiClientCommunicationError(
+                    msg,
+                ) from ipv4_exception
+        except aiohttp.ClientError as exception:
             msg = f"Error fetching information - {exception}"
             raise FrenchHolidayApiClientCommunicationError(
                 msg,
@@ -104,3 +120,21 @@ class FrenchHolidayApiClient:
             raise FrenchHolidayApiClientError(
                 msg,
             ) from exception
+
+    @staticmethod
+    async def _do_request(
+        session: aiohttp.ClientSession,
+        method: str,
+        url: str,
+        data: dict | None,
+        headers: dict | None,
+    ) -> Any:
+        """Perform a single HTTP request and return the parsed JSON body."""
+        async with async_timeout.timeout(10):
+            response = await session.request(
+                method=method,
+                url=url,
+                headers=headers,
+                json=data,
+            )
+            return await response.json()

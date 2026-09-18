@@ -37,9 +37,12 @@ class FrenchHolidayFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         client = FrenchHolidayApiClient(session=async_get_clientsession(self.hass))
         try:
             zones = await client.async_get_zones()
-        except FrenchHolidayApiClientError:
+        except FrenchHolidayApiClientError as exception:
             LOGGER.exception("Failed to fetch zones from the API")
-            return self.async_abort(reason="cannot_connect")
+            return self.async_abort(
+                reason="cannot_connect",
+                description_placeholders={"error_detail": str(exception)},
+            )
 
         return self.async_show_form(
             step_id="user",
