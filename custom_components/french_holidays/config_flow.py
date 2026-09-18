@@ -12,7 +12,7 @@ from .api import (
     FrenchHolidayApiClient,
     FrenchHolidayApiClientError,
 )
-from .const import CONF_ZONE, DOMAIN
+from .const import CONF_ZONE, DOMAIN, LOGGER
 
 
 class FrenchHolidayFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
@@ -38,6 +38,7 @@ class FrenchHolidayFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         try:
             zones = await client.async_get_zones()
         except FrenchHolidayApiClientError:
+            LOGGER.exception("Failed to fetch zones from the API")
             return self.async_abort(reason="cannot_connect")
 
         return self.async_show_form(
