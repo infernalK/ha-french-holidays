@@ -9,7 +9,6 @@ from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from slugify import slugify
 
 from .api import (
-    ZONES_URL,
     FrenchHolidayApiClient,
     FrenchHolidayApiClientError,
 )
@@ -42,10 +41,7 @@ class FrenchHolidayFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             LOGGER.exception("Failed to fetch zones from the API")
             return self.async_abort(
                 reason="cannot_connect",
-                description_placeholders={
-                    "error_detail": str(exception),
-                    "test_url": ZONES_URL,
-                },
+                description_placeholders={"error_detail": str(exception)},
             )
 
         return self.async_show_form(

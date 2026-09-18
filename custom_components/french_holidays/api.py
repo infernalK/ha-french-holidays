@@ -12,8 +12,6 @@ import async_timeout
 
 from .const import LOGGER
 
-ZONES_URL = "https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-calendrier-scolaire/records?group_by=zones&order_by=zones&limit=100"
-
 
 class FrenchHolidayApiClientError(Exception):
     """Exception to indicate a general API error."""
@@ -45,7 +43,7 @@ class FrenchHolidayApiClient:
         """Get available zones from the API."""
         zones_result = await self._api_wrapper(
             method="get",
-            url=ZONES_URL,
+            url="https://data.education.gouv.fr/api/explore/v2.1/catalog/datasets/fr-en-calendrier-scolaire/records?group_by=zones&order_by=zones&limit=100",
         )
 
         return sorted(
