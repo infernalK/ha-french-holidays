@@ -44,9 +44,13 @@ async def async_setup_entry(
         coordinator=coordinator,
     )
 
-    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     # https://developers.home-assistant.io/docs/integration_fetching_data#coordinated-single-api-poll-for-data-for-all-entities
+    # The first refresh must happen before forwarding to the platforms: if it
+    # raises ConfigEntryNotReady (e.g. network/DNS down), Home Assistant retries
+    # the setup and platforms already forwarded would fail with
+    # "has already been setup".
     await coordinator.async_config_entry_first_refresh()
+    await hass.config_entries.async_forward_entry_setups(entry, PLATFORMS)
     entry.async_on_unload(entry.add_update_listener(async_reload_entry))
 
     return True
