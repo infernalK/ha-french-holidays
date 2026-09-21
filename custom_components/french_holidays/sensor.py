@@ -86,6 +86,9 @@ class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         self.unsubscribe = async_track_time_change(
             self.hass, lambda _: self._handle_coordinator_update(), 0, 0, 0
         )
+        # The first refresh runs before the platforms load, so no coordinator
+        # update will notify us: compute the initial state now.
+        self._handle_coordinator_update()
 
     async def async_will_remove_from_hass(self) -> None:
         """Unsubscribe from the events."""
@@ -131,6 +134,9 @@ class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         self.unsubscribe = async_track_time_change(
             self.hass, lambda _: self._handle_coordinator_update(), 0, 0, 0
         )
+        # The first refresh runs before the platforms load, so no coordinator
+        # update will notify us: compute the initial state now.
+        self._handle_coordinator_update()
 
     async def async_will_remove_from_hass(self) -> None:
         """Unsubscribe from the events."""
@@ -178,6 +184,9 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         self.unsubscribe = async_track_time_change(
             self.hass, lambda _: self._handle_coordinator_update(), 0, 0, 0
         )
+        # The first refresh runs before the platforms load, so no coordinator
+        # update will notify us: compute the initial state now.
+        self._handle_coordinator_update()
 
     async def async_will_remove_from_hass(self) -> None:
         """Unsubscribe from the events."""
@@ -225,6 +234,9 @@ class NextVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
         self.unsubscribe = async_track_time_change(
             self.hass, lambda _: self._handle_coordinator_update(), 0, 0, 0
         )
+        # The first refresh runs before the platforms load, so no coordinator
+        # update will notify us: compute the initial state now.
+        self._handle_coordinator_update()
 
     async def async_will_remove_from_hass(self) -> None:
         """Unsubscribe from the events."""
@@ -273,6 +285,9 @@ class CurrentVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
         self.unsubscribe = async_track_time_change(
             self.hass, lambda _: self._handle_coordinator_update(), 0, 0, 0
         )
+        # The first refresh runs before the platforms load, so no coordinator
+        # update will notify us: compute the initial state now.
+        self._handle_coordinator_update()
 
     async def async_will_remove_from_hass(self) -> None:
         """Unsubscribe from the events."""
@@ -322,6 +337,9 @@ class DaysRemainingCurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         self.unsubscribe = async_track_time_change(
             self.hass, lambda _: self._handle_coordinator_update(), 0, 0, 0
         )
+        # The first refresh runs before the platforms load, so no coordinator
+        # update will notify us: compute the initial state now.
+        self._handle_coordinator_update()
 
     async def async_will_remove_from_hass(self) -> None:
         """Unsubscribe from the events."""

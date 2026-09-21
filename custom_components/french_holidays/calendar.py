@@ -68,6 +68,11 @@ class VacancesFrCalendar(FrenchHolidayEntity, CalendarEntity):
         """Return the next upcoming event."""
         return self._event
 
+    async def async_added_to_hass(self) -> None:
+        """Compute the initial event, as the first refresh precedes platform setup."""
+        await super().async_added_to_hass()
+        self._handle_coordinator_update()
+
     @callback
     def _handle_coordinator_update(self) -> None:
         """Update the entity."""
