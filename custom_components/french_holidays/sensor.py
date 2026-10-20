@@ -106,6 +106,7 @@ class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         else:
             self._attr_native_value = ""
             self._attr_extra_state_attributes = {}
+        self._attr_extra_state_attributes["cached_data"] = self.coordinator.using_cached_data
 
         self.schedule_update_ha_state()
 
@@ -155,6 +156,7 @@ class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         else:
             self._attr_native_value = ""
             self._attr_extra_state_attributes = {}
+        self._attr_extra_state_attributes["cached_data"] = self.coordinator.using_cached_data
 
         self.schedule_update_ha_state()
 
@@ -206,6 +208,7 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         else:
             self._attr_native_value = -1
             self._attr_extra_state_attributes = {}
+        self._attr_extra_state_attributes["cached_data"] = self.coordinator.using_cached_data
 
         self.schedule_update_ha_state()
 
@@ -257,6 +260,7 @@ class NextVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
         else:
             self._attr_native_value = ""
             self._attr_extra_state_attributes = {}
+        self._attr_extra_state_attributes["cached_data"] = self.coordinator.using_cached_data
 
         self.schedule_update_ha_state()
 
@@ -308,6 +312,7 @@ class CurrentVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
         else:
             self._attr_native_value = ""
             self._attr_extra_state_attributes = {}
+        self._attr_extra_state_attributes["cached_data"] = self.coordinator.using_cached_data
 
         self.schedule_update_ha_state()
 
@@ -359,5 +364,6 @@ class DaysRemainingCurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         else:
             self._attr_native_value = -1
             self._attr_extra_state_attributes = {}
+        self._attr_extra_state_attributes["cached_data"] = self.coordinator.using_cached_data
 
         self.schedule_update_ha_state()

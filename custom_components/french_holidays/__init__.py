@@ -7,7 +7,6 @@ https://github.com/infernalK/ha-french-holidays
 
 from __future__ import annotations
 
-from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from homeassistant.const import Platform
@@ -16,7 +15,7 @@ from homeassistant.loader import async_get_loaded_integration
 
 from .api import FrenchHolidayApiClient
 from .const import DOMAIN, LOGGER
-from .coordinator import FrenchHolidayDataUpdateCoordinator
+from .coordinator import NORMAL_UPDATE_INTERVAL, FrenchHolidayDataUpdateCoordinator
 from .data import FrenchHolidayData
 
 if TYPE_CHECKING:
@@ -34,7 +33,11 @@ async def async_setup_entry(
 ) -> bool:
     """Set up this integration using UI."""
     coordinator = FrenchHolidayDataUpdateCoordinator(
-        hass=hass, logger=LOGGER, name=DOMAIN, update_interval=timedelta(days=120)
+        hass=hass,
+        logger=LOGGER,
+        name=DOMAIN,
+        config_entry=entry,
+        update_interval=NORMAL_UPDATE_INTERVAL,
     )
     entry.runtime_data = FrenchHolidayData(
         client=FrenchHolidayApiClient(

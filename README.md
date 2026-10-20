@@ -11,6 +11,7 @@ Intégration Home Assistant qui expose les dates des vacances scolaires françai
 - [Installation](#installation)
 - [Configuration](#configuration)
 - [Entités créées](#entités-créées)
+- [Automatisations](#automatisations)
 - [Mise à jour](#mise-à-jour)
 - [Désinstaller](#désinstaller)
 - [Bugs](#bugs)
@@ -106,8 +107,54 @@ Les **attributs** donnent les mêmes informations sous des formes déjà calcul�
 | `duration_days` | `59` | Nombre total de jours de la période (dates de début et de fin incluses), par exemple pour une barre de progression. |
 | `zone` | `Zone C` | Zone scolaire concernée. |
 | `année_scolaire` | `2025-2026` | Année scolaire de la période. |
+| `cached_data` | `false` | `true` si les données affichées proviennent du cache local car l'API du Ministère était indisponible lors de la dernière tentative de mise à jour (voir [Résilience hors-ligne](#résilience-hors-ligne) ci-dessous). |
 
-L'intégration se met à jour tous les 120 jours, l'Éducation Nationale fournissant les plannings jusqu'en 2027.
+L'intégration vérifie les données tous les jours (l'Éducation Nationale fournissant les plannings jusqu'en 2027, les mises à jour réelles sont rares).
+
+### Résilience hors-ligne
+
+Si l'API du Ministère de l'Éducation Nationale est temporairement indisponible au moment d'une vérification, l'intégration continue d'afficher les dernières données obtenues avec succès (conservées dans le stockage local de Home Assistant) plutôt que de passer en erreur. L'attribut `cached_data` passe alors à `true` sur tous les capteurs, et la fréquence de vérification est automatiquement resserrée à toutes les heures jusqu'à ce que l'API redevienne accessible (au lieu d'attendre le prochain cycle quotidien). Dès qu'une mise à jour réussit, `cached_data` repasse à `false` et le rythme repasse à une vérification par jour. Un avertissement est tout de même inscrit dans les [logs](https://my.home-assistant.io/redirect/logs/) pour signaler l'indisponibilité.
+
+## Automatisations
+
+Quelques exemples d'automatisations possibles avec les entités créées (à adapter avec le nom de votre zone) :
+
+<details>
+<summary>Exemple : notification la veille de la rentrée</summary>
+
+```yaml
+automation:
+  - alias: "Notifier la veille de la rentrée"
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.french_holidays_days_until_next_zone_c
+        to: 1
+    action:
+      - service: notify.mobile_app_mon_telephone
+        data:
+          message: "C'est la rentrée demain !"
+```
+</details>
+
+<details>
+<summary>Exemple : condition « pas vacances » dans une automatisation de réveil scolaire</summary>
+
+```yaml
+automation:
+  - alias: "Réveil jour d'école"
+    trigger:
+      - platform: time
+        at: "07:00:00"
+    condition:
+      - condition: state
+        entity_id: binary_sensor.french_holidays_today_zone_c
+        state: "off"
+    action:
+      - service: light.turn_on
+        target:
+          entity_id: light.chambre
+```
+</details>
 
 ## Mise à jour
 

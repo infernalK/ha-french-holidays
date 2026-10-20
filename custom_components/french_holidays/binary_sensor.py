@@ -104,8 +104,11 @@ class VacancesFrTomorrowBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
                 self._attr_extra_state_attributes = get_period_extra_attributes(tomorrow_event)
             else:
                 self._attr_is_on = False
+                self._attr_extra_state_attributes = {}
         else:
             self._attr_is_on = False
+            self._attr_extra_state_attributes = {}
+        self._attr_extra_state_attributes["cached_data"] = self.coordinator.using_cached_data
 
         self.schedule_update_ha_state()
 
@@ -158,7 +161,10 @@ class VacancesFrTodayBinarySensor(FrenchHolidayEntity, BinarySensorEntity):
                 self._attr_extra_state_attributes = get_period_extra_attributes(today_event)
             else:
                 self._attr_is_on = False
+                self._attr_extra_state_attributes = {}
         else:
             self._attr_is_on = False
+            self._attr_extra_state_attributes = {}
+        self._attr_extra_state_attributes["cached_data"] = self.coordinator.using_cached_data
 
         self.schedule_update_ha_state()

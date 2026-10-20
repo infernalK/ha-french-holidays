@@ -2,12 +2,11 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+from datetime import date
 from typing import TYPE_CHECKING, Any
 
 if TYPE_CHECKING:
-    from datetime import date
-
     from homeassistant.config_entries import ConfigEntry
     from homeassistant.loader import Integration
 
@@ -37,6 +36,26 @@ class FrenchHolidayPeriod:
     uid: str
     zone: str
     year: str
+
+
+def period_to_dict(period: FrenchHolidayPeriod) -> dict[str, Any]:
+    """Serialize a period to a JSON-storable dict, for the persistent cache."""
+    data = asdict(period)
+    data["start"] = period.start.isoformat()
+    data["end"] = period.end.isoformat()
+    return data
+
+
+def period_from_dict(data: dict[str, Any]) -> FrenchHolidayPeriod:
+    """Rebuild a period from a dict loaded from the persistent cache."""
+    return FrenchHolidayPeriod(
+        summary=data["summary"],
+        start=date.fromisoformat(data["start"]),
+        end=date.fromisoformat(data["end"]),
+        uid=data["uid"],
+        zone=data["zone"],
+        year=data["year"],
+    )
 
 
 _MONTHS_SHORT = [
