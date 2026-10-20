@@ -10,12 +10,17 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from homeassistant.const import Platform
+from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.loader import async_get_loaded_integration
 
 from .api import FrenchHolidayApiClient
 from .const import DOMAIN, LOGGER
-from .coordinator import NORMAL_UPDATE_INTERVAL, FrenchHolidayDataUpdateCoordinator
+from .coordinator import (
+    ISSUE_ZONE_NOT_FOUND,
+    NORMAL_UPDATE_INTERVAL,
+    FrenchHolidayDataUpdateCoordinator,
+)
 from .data import FrenchHolidayData
 
 if TYPE_CHECKING:
@@ -64,6 +69,7 @@ async def async_unload_entry(
     entry: FrenchHolidayConfigEntry,
 ) -> bool:
     """Handle removal of an entry."""
+    ir.async_delete_issue(hass, DOMAIN, f"{ISSUE_ZONE_NOT_FOUND}_{entry.entry_id}")
     return await hass.config_entries.async_unload_platforms(entry, PLATFORMS)
 
 

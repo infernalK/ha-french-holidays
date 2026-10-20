@@ -6,6 +6,12 @@
                 "data": {
                     "zone": "Zone"
                 }
+            },
+            "reconfigure": {
+                "description": "Choose the new zone",
+                "data": {
+                    "zone": "Zone"
+                }
             }
         },
         "error": {
@@ -14,7 +20,28 @@
         },
         "abort": {
             "already_configured": "This entry is already configured.",
-            "cannot_connect": "Unable to fetch the list of zones from the server. Please try again later.\n\nTechnical detail: {error_detail}"
+            "cannot_connect": "Unable to fetch the list of zones from the server. Please try again later.\n\nTechnical detail: {error_detail}",
+            "reconfigure_successful": "The zone was updated successfully."
+        }
+    },
+    "issues": {
+        "zone_not_found": {
+            "title": "Zone \"{zone}\" no longer exists",
+            "description": "Zone \"{zone}\" no longer appears in the list of zones published by the French Ministry of Education (renamed or removed upstream). Reconfigure the integration to pick a valid zone: Settings > Devices & services > Vacances scolaires françaises > '...' > Reconfigure."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "current": { "name": "Current" },
+            "next": { "name": "Next" },
+            "days_until_next": { "name": "Days until next" },
+            "next_dates": { "name": "Next dates" },
+            "current_dates": { "name": "Current dates" },
+            "days_remaining_current": { "name": "Days remaining" }
+        },
+        "binary_sensor": {
+            "tomorrow": { "name": "Tomorrow?" },
+            "today": { "name": "Today?" }
         }
     }
 }

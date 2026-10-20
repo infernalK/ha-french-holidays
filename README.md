@@ -1,10 +1,21 @@
-# Vacances scolaires françaises
+# 🎒 Vacances scolaires françaises
 
 [![Open your Home Assistant instance and open a repository inside the Home Assistant Community Store.](https://my.home-assistant.io/badges/hacs_repository.svg)](https://my.home-assistant.io/redirect/hacs_repository/?owner=infernalK&repository=ha-french-holidays&category=integration)
 [![GitHub release](https://img.shields.io/github/v/release/infernalK/ha-french-holidays)](https://github.com/infernalK/ha-french-holidays/releases)
 [![License](https://img.shields.io/github/license/infernalK/ha-french-holidays)](LICENSE)
 
+> Sait-on vraiment si demain c'est les vacances ? Avec cette intégration, Home Assistant le sait pour vous — et peut le crier sur votre Pixoo, votre tableau de bord ou votre réveil.
+
 Intégration Home Assistant qui expose les dates des vacances scolaires françaises (zones A, B, C, Corse, DOM-TOM...) sous forme de `calendar`, `binary_sensor` et `sensor`. Les données proviennent de l'[API du Ministère de l'Éducation Nationale](https://data.education.gouv.fr/).
+
+## ✨ En un coup d'œil
+
+- 📅 **Calendrier natif** + capteurs "aujourd'hui / demain / en cours / à venir", prêts à glisser dans un tableau de bord.
+- 🧩 **Attributs riches** sur chaque capteur : dates ISO et format court, jour de la semaine, durée, année scolaire — pas besoin de reparser le texte dans vos templates.
+- 🌍 **Multi-zones** : suivez autant de zones que vous voulez en parallèle, chacune avec son propre appareil.
+- 🛡️ **Résiliente** : si l'API du Ministère est indisponible, l'intégration continue de fonctionner grâce à un cache local, et retente plus souvent jusqu'à ce que ça revienne.
+- 🩺 **Diagnosticable** : exportez un rapport complet en un clic en cas de souci.
+- 🇫🇷 Zéro configuration YAML, tout se fait depuis l'interface Home Assistant.
 
 ## Sommaire
 
@@ -57,22 +68,24 @@ Pour configurer l'intégration :
 
 Une fois configurée, l'intégration créera automatiquement les entités suivantes pour la zone sélectionnée. Vous pouvez répéter l'opération pour suivre plusieurs zones : chaque zone crée son propre appareil et son propre jeu d'entités.
 
+> 💡 Besoin de changer de zone ? Pas la peine de supprimer l'entrée : Paramètres > Appareils et services > Vacances scolaires françaises > '...' > **Reconfigurer**.
+
 ## Entités créées
 
-### Calendrier
+### 📅 Calendrier
 
 | Entité | Description |
 | --- | --- |
 | `calendar` | Toutes les vacances à venir pour la zone. Son état est `on` si une période de vacances est en cours, `off` sinon. |
 
-### Capteurs binaires (`binary_sensor`)
+### 🔔 Capteurs binaires (`binary_sensor`)
 
 | Entité | Description |
 | --- | --- |
 | Vacances aujourd'hui ? | `on` si la zone est en vacances aujourd'hui. |
 | Vacances demain ? | `on` si la zone sera en vacances demain. |
 
-### Capteurs (`sensor`)
+### 📊 Capteurs (`sensor`)
 
 **Vacances en cours**
 
@@ -90,7 +103,7 @@ Une fois configurée, l'intégration créera automatiquement les entités suivan
 | Vacances - dates prochaines | Dates des prochaines vacances, même format que ci-dessus. |
 | Vacances - jours avant prochaines | Nombre de jours avant le début des prochaines vacances. |
 
-#### State et attributs des capteurs "vacances"
+#### 🧩 State et attributs des capteurs "vacances"
 
 Pour ces quatre capteurs (Vacances en cours / à venir / dates en cours / dates prochaines), le **state** est toujours la version "prête à lire" (le nom de la période, ou les dates au format long) : idéal pour un affichage direct ou les logs, mais peu pratique à reformater dans un template.
 
@@ -111,7 +124,7 @@ Les **attributs** donnent les mêmes informations sous des formes déjà calcul�
 
 L'intégration vérifie les données tous les jours (l'Éducation Nationale fournissant les plannings jusqu'en 2027, les mises à jour réelles sont rares).
 
-### Résilience hors-ligne
+### 🛡️ Résilience hors-ligne
 
 Si l'API du Ministère de l'Éducation Nationale est temporairement indisponible au moment d'une vérification, l'intégration continue d'afficher les dernières données obtenues avec succès (conservées dans le stockage local de Home Assistant) plutôt que de passer en erreur. L'attribut `cached_data` passe alors à `true` sur tous les capteurs, et la fréquence de vérification est automatiquement resserrée à toutes les heures jusqu'à ce que l'API redevienne accessible (au lieu d'attendre le prochain cycle quotidien). Dès qu'une mise à jour réussit, `cached_data` repasse à `false` et le rythme repasse à une vérification par jour. Un avertissement est tout de même inscrit dans les [logs](https://my.home-assistant.io/redirect/logs/) pour signaler l'indisponibilité.
 
@@ -120,7 +133,7 @@ Si l'API du Ministère de l'Éducation Nationale est temporairement indisponible
 Quelques exemples d'automatisations possibles avec les entités créées (à adapter avec le nom de votre zone) :
 
 <details>
-<summary>Exemple : notification la veille de la rentrée</summary>
+<summary>🔔 Exemple : notification la veille de la rentrée</summary>
 
 ```yaml
 automation:
@@ -137,7 +150,7 @@ automation:
 </details>
 
 <details>
-<summary>Exemple : condition « pas vacances » dans une automatisation de réveil scolaire</summary>
+<summary>⏰ Exemple : condition « pas vacances » dans une automatisation de réveil scolaire</summary>
 
 ```yaml
 automation:

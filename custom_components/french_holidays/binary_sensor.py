@@ -16,7 +16,7 @@ from homeassistant.helpers.event import (
 )
 from homeassistant.util import dt, slugify
 
-from .const import DOMAIN, FRIENDLY_PREFIX
+from .const import DOMAIN
 from .data import get_period_extra_attributes
 from .entity import FrenchHolidayEntity
 
@@ -42,14 +42,14 @@ async def async_setup_entry(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=BinarySensorEntityDescription(
                     key="tomorrow",
-                    name=f"{FRIENDLY_PREFIX} demain ?",
+                    translation_key="tomorrow",
                 ),
             ),
             VacancesFrTodayBinarySensor(
                 coordinator=entry.runtime_data.coordinator,
                 entity_description=BinarySensorEntityDescription(
                     key="today",
-                    name=f"{FRIENDLY_PREFIX} aujourd'hui ?",
+                    translation_key="today",
                 ),
             ),
         ]

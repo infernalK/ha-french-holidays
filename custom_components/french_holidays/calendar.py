@@ -14,7 +14,7 @@ from homeassistant.const import Platform
 from homeassistant.core import callback
 from homeassistant.util import dt, slugify
 
-from .const import DOMAIN, FRIENDLY_NAME
+from .const import DOMAIN
 from .entity import FrenchHolidayEntity
 
 if TYPE_CHECKING:
@@ -37,9 +37,7 @@ async def async_setup_entry(
         [
             VacancesFrCalendar(
                 coordinator=entry.runtime_data.coordinator,
-                entity_description=CalendarEntityDescription(
-                    key="vacances", name=FRIENDLY_NAME
-                ),
+                entity_description=CalendarEntityDescription(key="vacances"),
             )
         ]
     )

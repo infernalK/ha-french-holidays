@@ -25,10 +25,30 @@ class FrenchHolidayFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
         user_input: dict | None = None,
     ) -> config_entries.ConfigFlowResult:
         """Handle a flow initialized by the user."""
+        return await self._async_step_zone("user", user_input)
+
+    async def async_step_reconfigure(
+        self,
+        user_input: dict | None = None,
+    ) -> config_entries.ConfigFlowResult:
+        """Handle reconfiguration of an existing entry (change of zone)."""
+        return await self._async_step_zone("reconfigure", user_input)
+
+    async def _async_step_zone(
+        self,
+        step_id: str,
+        user_input: dict | None = None,
+    ) -> config_entries.ConfigFlowResult:
+        """Show and process the zone selection form, for both create and reconfigure."""
         _errors = {}
         if user_input is not None:
             await self.async_set_unique_id(unique_id=slugify(user_input[CONF_ZONE]))
             self._abort_if_unique_id_configured()
+            if self.source == config_entries.SOURCE_RECONFIGURE:
+                return self.async_update_reload_and_abort(
+                    self._get_reconfigure_entry(),
+                    data=user_input,
+                )
             return self.async_create_entry(
                 title=user_input[CONF_ZONE],
                 data=user_input,
@@ -45,7 +65,7 @@ class FrenchHolidayFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             )
 
         return self.async_show_form(
-            step_id="user",
+            step_id=step_id,
             data_schema=vol.Schema(
                 {
                     vol.Required("zone"): selector.SelectSelector({"options": zones}),

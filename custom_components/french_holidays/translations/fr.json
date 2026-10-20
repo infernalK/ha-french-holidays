@@ -6,6 +6,12 @@
                 "data": {
                     "zone": "Zone"
                 }
+            },
+            "reconfigure": {
+                "description": "Choisissez la nouvelle zone",
+                "data": {
+                    "zone": "Zone"
+                }
             }
         },
         "error": {
@@ -14,7 +20,28 @@
         },
         "abort": {
             "already_configured": "Cette zone est déjà configurée.",
-            "cannot_connect": "Impossible de récupérer la liste des zones depuis le serveur. Réessayez plus tard.\n\nDétail technique : {error_detail}"
+            "cannot_connect": "Impossible de récupérer la liste des zones depuis le serveur. Réessayez plus tard.\n\nDétail technique : {error_detail}",
+            "reconfigure_successful": "La zone a été mise à jour avec succès."
+        }
+    },
+    "issues": {
+        "zone_not_found": {
+            "title": "La zone « {zone} » n'existe plus",
+            "description": "La zone « {zone} » n'apparaît plus dans la liste des zones publiées par l'Éducation Nationale (renommage ou suppression côté Ministère). Reconfigurez l'intégration pour choisir une zone valide : Paramètres > Appareils et services > Vacances scolaires françaises > '...' > Reconfigurer."
+        }
+    },
+    "entity": {
+        "sensor": {
+            "current": { "name": "En cours" },
+            "next": { "name": "À venir" },
+            "days_until_next": { "name": "Jours avant prochaines" },
+            "next_dates": { "name": "Dates prochaines" },
+            "current_dates": { "name": "Dates en cours" },
+            "days_remaining_current": { "name": "Jours restants" }
+        },
+        "binary_sensor": {
+            "tomorrow": { "name": "Demain ?" },
+            "today": { "name": "Aujourd'hui ?" }
         }
     }
 }

@@ -10,7 +10,7 @@ from homeassistant.core import callback
 from homeassistant.helpers.event import async_track_time_change
 from homeassistant.util import dt, slugify
 
-from .const import DOMAIN, FRIENDLY_PREFIX
+from .const import DOMAIN
 from .data import get_period_extra_attributes
 from .entity import FrenchHolidayEntity
 
@@ -76,7 +76,7 @@ class CurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         }"
         self.entity_description = SensorEntityDescription(
             key="current",
-            name=f"{FRIENDLY_PREFIX} en cours",
+            translation_key="current",
             icon="mdi:format-quote-close",
         )
 
@@ -125,7 +125,7 @@ class NextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         }"
         self.entity_description = SensorEntityDescription(
             key="next",
-            name=f"{FRIENDLY_PREFIX} à venir",
+            translation_key="next",
             icon="mdi:format-quote-close",
         )
 
@@ -175,7 +175,7 @@ class DaysUntilNextVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         }"
         self.entity_description = SensorEntityDescription(
             key="days_until_next",
-            name=f"{FRIENDLY_PREFIX} - jours avant prochaines",
+            translation_key="days_until_next",
             icon="mdi:calendar-clock",
             native_unit_of_measurement=UnitOfTime.DAYS,
         )
@@ -227,7 +227,7 @@ class NextVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
         }"
         self.entity_description = SensorEntityDescription(
             key="next_dates",
-            name=f"{FRIENDLY_PREFIX} - dates prochaines",
+            translation_key="next_dates",
             icon="mdi:calendar-range",
         )
 
@@ -279,7 +279,7 @@ class CurrentVacancesFrDatesSensor(FrenchHolidayEntity, SensorEntity):
         }"
         self.entity_description = SensorEntityDescription(
             key="current_dates",
-            name=f"{FRIENDLY_PREFIX} - dates en cours",
+            translation_key="current_dates",
             icon="mdi:calendar-range",
         )
 
@@ -331,7 +331,7 @@ class DaysRemainingCurrentVacancesFrSensor(FrenchHolidayEntity, SensorEntity):
         }"
         self.entity_description = SensorEntityDescription(
             key="days_remaining_current",
-            name=f"{FRIENDLY_PREFIX} - jours restants",
+            translation_key="days_remaining_current",
             icon="mdi:calendar-clock",
             native_unit_of_measurement=UnitOfTime.DAYS,
         )

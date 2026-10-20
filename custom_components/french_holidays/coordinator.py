@@ -6,6 +6,7 @@ from datetime import timedelta
 from typing import TYPE_CHECKING
 
 from homeassistant.exceptions import ConfigEntryAuthFailed
+from homeassistant.helpers import issue_registry as ir
 from homeassistant.helpers.storage import Store
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 from homeassistant.util import slugify
@@ -28,6 +29,7 @@ if TYPE_CHECKING:
 STORAGE_VERSION = 1
 NORMAL_UPDATE_INTERVAL = timedelta(days=1)
 RETRY_UPDATE_INTERVAL = timedelta(hours=1)
+ISSUE_ZONE_NOT_FOUND = "zone_not_found"
 
 
 # https://developers.home-assistant.io/docs/integration_fetching_data#coordinated-single-api-poll-for-data-for-all-entities
@@ -96,7 +98,42 @@ class FrenchHolidayDataUpdateCoordinator(DataUpdateCoordinator[list[FrenchHolida
             self.using_cached_data = False
             self.update_interval = NORMAL_UPDATE_INTERVAL
             await self._store.async_save([period_to_dict(p) for p in periods])
+            if periods:
+                self._async_delete_zone_issue()
+            else:
+                await self._async_check_zone_validity()
             return periods
+
+    def _issue_id(self) -> str:
+        return f"{ISSUE_ZONE_NOT_FOUND}_{self.config_entry.entry_id}"
+
+    def _async_delete_zone_issue(self) -> None:
+        ir.async_delete_issue(self.hass, DOMAIN, self._issue_id())
+
+    async def _async_check_zone_validity(self) -> None:
+        """Flag a repair issue if the configured zone no longer exists upstream.
+
+        An empty result can also mean there is simply no upcoming period yet
+        published, so this only raises when the zone itself has disappeared
+        from the list the Ministry publishes.
+        """
+        zone = self.config_entry.data["zone"]
+        try:
+            zones = await self.config_entry.runtime_data.client.async_get_zones()
+        except FrenchHolidayApiClientError:
+            return
+        if zone in zones:
+            self._async_delete_zone_issue()
+            return
+        ir.async_create_issue(
+            self.hass,
+            DOMAIN,
+            self._issue_id(),
+            is_fixable=False,
+            severity=ir.IssueSeverity.WARNING,
+            translation_key=ISSUE_ZONE_NOT_FOUND,
+            translation_placeholders={"zone": zone},
+        )
 
     async def _async_load_cached_periods(self) -> list[FrenchHolidayPeriod] | None:
         """Load the last successfully fetched periods from the persistent cache."""
